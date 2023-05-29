@@ -20,30 +20,88 @@
     <nav class="navbar text-light bg-primary justify-content-center d-flex">
         <h1>Weather Dashboard</h1>
     </nav>
-    
+
     <div id="container" class="d-flex">
-        <aside id="citySelection" class="">
+        <aside id="citySelection" class="vh-100 d-flex justify-content-start">
             <h2>Search for a City:</h2>
             <nav id="" class="navbar navbar-light ">
-                  <input class="form-control w-100" type="search" placeholder="Search" aria-label="Search"> 
-                  <button class="btn btn-outline-success bg-primary text-light w-100 " type="submit">Search</button>               
+                <input class="form-control w-100" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success bg-primary text-light w-100 " type="submit">Search</button>
             </nav>
             <nav class="d-flex flex-column m-1 ">
-                <button class="btn bg-secondary text-light w-100 " type="submit">Atlanta</button>
-                <button class="btn bg-secondary text-light w-100 " type="submit">Denver</button>
-                <button class="btn bg-secondary text-light w-100 " type="submit">Seattle</button>
-                <button class="btn bg-secondary text-light w-100 " type="submit">San Francisco</button>
-                <button class="btn bg-secondary text-light w-100 " type="submit">Orlando</button>
-                <button class="btn bg-secondary text-light w-100 " type="submit">New York</button>
-                <button class="btn bg-secondary text-light w-100 " type="submit">Chicago</button>
-                <button class="btn bg-secondary text-light w-100 " type="submit">Austin</button>
+
             </nav>
-    
+
         </aside>
-        <section id="currentWeather">
-    
-        </section>
-        <section id="5DayForecast"></section>
+        <main class="flex-column w-100">
+
+            <section id="currentWeather" class="card w-80 m-2 p-2">
+                <h2 id="cityTodayWeather">Current Weather</h2>
+                <div class="d-flex flex-column">
+                    <div class="d-flex flex-row">
+
+                    </div>
+                    <p id="currentTemp">temp</p>
+                    <p id="currentHumidity">humidity</p>
+                    <p id="currentWindSpeed">wind</p>
+                </div>
+
+            </section>
+            <section id="5DayForecast" class="flex-wrap m-2 d-flex">
+                <h3 class="w-100 m-2">5-Day Forecast:</h3>
+                <div class="card m-2" style="width: 10rem">
+                    <div class="card-body">
+                        <h5 class="card-day">DAY</h5>
+                        <p class="card-temp">temperature</p>
+                        <p class="card-humid">humidity</p>
+                        <p class="card-wind">wind</p>
+                        <p class="card-icon">icon</p>
+
+                    </div>
+                </div>
+                <div class="card m-2" style="width: 10rem">
+                    <div class="card-body">
+                        <h5 class="card-day">DAY</h5>
+                        <p class="card-temp">temperature</p>
+                        <p class="card-humid">humidity</p>
+                        <p class="card-wind">wind</p>
+                        <p class="card-icon">icon</p>
+
+                    </div>
+                </div>
+                <div class="card m-2" style="width: 10rem">
+                    <div class="card-body">
+                        <h5 class="card-day">DAY</h5>
+                        <p class="card-temp">temperature</p>
+                        <p class="card-humid">humidity</p>
+                        <p class="card-wind">wind</p>
+                        <p class="card-icon">icon</p>
+
+                    </div>
+                </div>
+                <div class="card m-2" style="width: 10rem">
+                    <div class="card-body">
+                        <h5 class="card-day">DAY</h5>
+                        <p class="card-temp">temperature</p>
+                        <p class="card-humid">humidity</p>
+                        <p class="card-wind">wind</p>
+                        <p class="card-icon">icon</p>
+
+                    </div>
+                </div>
+                <div class="card m-2" style="width: 10rem">
+                    <div class="card-body">
+                        <h5 class="card-day">DAY</h5>
+                        <p class="card-temp">temperature</p>
+                        <p class="card-humid">humidity</p>
+                        <p class="card-wind">wind</p>
+                        <p class="card-icon">icon</p>
+
+                    </div>
+                </div>
+
+            </section>
+        </main>
 
     </div>
     <script src="./assets/js/script.js"></script>

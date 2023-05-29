@@ -12,5 +12,15 @@
 }
 .btn{
     padding: .5rem;
-    margin: .3rem;
+    margin: 10px 0px;
+}
+aside{
+    width: 25%;
+    margin: 10px;
+    display: block;
+    outline:0;
+
+}
+#currentWeather{
+    /* margin: ; */
 }
