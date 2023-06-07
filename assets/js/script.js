@@ -19,7 +19,7 @@ const searchBtn = document.querySelector("#searchBtn");
 let searchInput = document.querySelector("#searchInput");
 let searchHistory = document.querySelector("#searchHistory");
 let historyBtn = document.querySelector(".historyBtn");
-const fiveDayForecast = document.querySelector("#5dayForecast");
+// const fiveDayForecast = document.querySelector("#5dayForecast");
 
 //search button event listener
 searchBtn.addEventListener("click", function (event) {
@@ -38,28 +38,21 @@ searchBtn.addEventListener("click", function (event) {
     getGeo(userInput);
 });
 
+
+
+// get geo location to get lat and lon then pass to get weather
 function getGeo(userInput) {
     let requestUrl = geoCall + userInput + geoCallEnd;
-    console.log(requestUrl);
-
-
 
     fetch(requestUrl)
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
-
+            // get the lat and lon from the response and pass to get weather
             let userLat = data[0].lat;
             let userLon = data[0].lon;
-            console.log(userLat);
-            console.log(userLon);
             getWeather(userLat, userLon);
-
-            for (let i = 0; i < data.length; i++) {
-                
-            }
         }
         );
 
@@ -67,13 +60,12 @@ function getGeo(userInput) {
 
 
 
-
+// get weather
 function getWeather(userLat, userLon) {
     let requestUrl = "https://api.openweathermap.org/data/2.5/weather?lat=";
     let requestUrl2 = "&lon=";
     let requestUrl3 = "&appid=0234c7f88c3f9aac4ae6f0266bab2d58";
     let requestUrl4 = requestUrl + userLat + requestUrl2 + userLon + requestUrl3;
-    console.log(requestUrl4);
 
     fetch(requestUrl4)
         .then(function (response) {
@@ -84,9 +76,15 @@ function getWeather(userLat, userLon) {
 
             let cityName = data.name;
             console.log(cityName);
-            let cityTemp = data.main.temp;
+
+            let searchedDateTimeStamp = data.dt;
+            let searchedDate = new Date(searchedDateTimeStamp * 1000)
+            let cityDate = searchedDate.toLocaleDateString("en-US");
+            console.log(cityDate);
+
+            let cityTemp = data.main.temp; // temperature received in Kelvin
             console.log(cityTemp);
-            let tempF = (cityTemp - 273.15) * 1.80 + 32;
+            let tempF = (cityTemp - 273.15) * 1.8 + 32; // convert to Fahrenheit
             console.log(tempF);
             let cityHumidity = data.main.humidity;
             console.log(cityHumidity);
@@ -95,9 +93,19 @@ function getWeather(userLat, userLon) {
             let cityIcon = data.weather[0].icon;
             console.log(cityIcon);
 
-        }
-        );
+            // Output current weather data to currentWeather section
+            let currentWeatherSection = document.querySelector("#currentWeather");
+            currentWeatherSection.innerHTML = `
+          <h2 id="cityTodayWeather">${cityName} ${cityDate}</h2>
+          <div class="d-flex flex-column">
+            <div class="d-flex flex-row"></div>
+            <p id="currentTemp">${tempF.toFixed(2)}°F</p>
+            <p id="currentHumidity">${cityHumidity}% humidity</p>
+            <p id="currentWindSpeed">${cityWind} m/s wind</p>
+          </div>
+        `;
 
+
+
+        });
 }
-
-
