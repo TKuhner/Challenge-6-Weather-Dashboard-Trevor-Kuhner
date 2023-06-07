@@ -19,7 +19,10 @@ const searchBtn = document.querySelector("#searchBtn");
 let searchInput = document.querySelector("#searchInput");
 let searchHistory = document.querySelector("#searchHistory");
 let historyBtn = document.querySelector(".historyBtn");
-// const fiveDayForecast = document.querySelector("#5dayForecast");
+
+function kelvinToFahrenheit(kelvin) {
+    return (kelvin - 273.15) * 9 / 5 + 32;
+}
 
 //search button event listener
 searchBtn.addEventListener("click", function (event) {
@@ -39,6 +42,18 @@ searchBtn.addEventListener("click", function (event) {
 });
 
 
+historyBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+    historyInput = document.querySelector(".historyBtn").value;
+
+
+
+
+
+    console.log(historyInput);
+    // getGeo(historyInput);
+});
+
 
 // get geo location to get lat and lon then pass to get weather
 function getGeo(userInput) {
@@ -53,6 +68,8 @@ function getGeo(userInput) {
             let userLat = data[0].lat;
             let userLon = data[0].lon;
             getWeather(userLat, userLon);
+            getForecast(userLat, userLon);
+
         }
         );
 
@@ -66,6 +83,8 @@ function getWeather(userLat, userLon) {
     let requestUrl2 = "&lon=";
     let requestUrl3 = "&appid=0234c7f88c3f9aac4ae6f0266bab2d58";
     let requestUrl4 = requestUrl + userLat + requestUrl2 + userLon + requestUrl3;
+
+
 
     fetch(requestUrl4)
         .then(function (response) {
@@ -82,7 +101,7 @@ function getWeather(userLat, userLon) {
             let cityDate = searchedDate.toLocaleDateString("en-US");
             console.log(cityDate);
 
-            let cityTemp = data.main.temp; // temperature received in Kelvin
+            let cityTemp = kelvinToFahrenheit(data.main.temp); // temperature received in Kelvin
             console.log(cityTemp);
             let tempF = (cityTemp - 273.15) * 1.8 + 32; // convert to Fahrenheit
             console.log(tempF);
@@ -105,7 +124,76 @@ function getWeather(userLat, userLon) {
           </div>
         `;
 
+        });
+}
+
+function getForecast(userLat, userLon) {
+    let weekArray = [];
+    let iconArray = [];
+    let requestUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${userLat}&lon=${userLon}&appid=0234c7f88c3f9aac4ae6f0266bab2d58`;
+   
+
+    fetch(requestUrl)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
+            for (let i = 0; i < data.list.length; i++) {
+                if (data.list[i].dt_txt.includes("12:00:00")) {
+                    weekArray.push(data.list[i]);
+                    iconArray.push(data.list[i].weather[0].icon);
+
+                }
+            }
 
 
+            // Output forecast data to forecast section
+            let forecastSection = document.querySelector("#weekForecast");
+            forecastSection.innerHTML = `<h3 class="w-100 m-2">5-Day Forecast:</h3>`;
+
+            for (let i = 0; i < weekArray.length; i++) {
+                let forecast = weekArray[i];
+                let icon = `https://openweathermap.org/img/w/${iconArray[i]}.png`;
+
+              
+                let card = document.createElement("div");
+                card.classList.add("card", "m-2");
+                card.style.width = "10rem";
+              
+                let cardBody = document.createElement("div");
+                cardBody.classList.add("card-body");
+              
+                let cardDay = document.createElement("h5");
+                cardDay.classList.add("card-day");
+                cardDay.textContent = forecast.dt_txt;
+                cardBody.appendChild(cardDay);
+              
+                // Populate other forecast details such as temperature, humidity, wind, and icon
+                let fahrenheitTemp = kelvinToFahrenheit(forecast.main.temp);
+              
+                let cardTemp = document.createElement("p");
+                cardTemp.classList.add("card-temp");
+                cardTemp.textContent = `Temperature: ${fahrenheitTemp.toFixed(2)}°F`;
+                cardBody.appendChild(cardTemp);
+              
+                let cardHumidity = document.createElement("p");
+                cardHumidity.classList.add("card-humid");
+                cardHumidity.textContent = `Humidity: ${forecast.main.humidity}`;
+                cardBody.appendChild(cardHumidity);
+              
+                let cardWind = document.createElement("p");
+                cardWind.classList.add("card-wind");
+                cardWind.textContent = `Wind: ${forecast.wind.speed} m/s`;
+                cardBody.appendChild(cardWind);
+              
+                let cardIcon = document.createElement("img");
+                cardIcon.classList.add("card-icon");
+                cardIcon.src = icon;
+                cardBody.appendChild(cardIcon);
+              
+                card.appendChild(cardBody);
+                forecastSection.appendChild(card);
+              }
         });
 }
