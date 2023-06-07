@@ -1,9 +1,3 @@
-
-const geoCall = 'http://api.openweathermap.org/geo/1.0/direct?q='
-const geoCallEnd = '&limit=5&appid=0234c7f88c3f9aac4ae6f0266bab2d58'
-
-// {city name},{state code},{country code}&limit=5&appid=0234c7f88c3f9aac4ae6f0266bab2d58'
-
 //global variables
 const searchBtn = document.querySelector("#searchBtn");
 let searchInput = document.querySelector("#searchInput");
@@ -81,7 +75,7 @@ document.addEventListener("click", function (event) {
 
 // get geo location to get lat and lon then pass to get weather
 function getGeo(userInput) {
-    let requestUrl = geoCall + userInput + geoCallEnd;
+    let requestUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${userInput}&limit=5&appid=0234c7f88c3f9aac4ae6f0266bab2d58`;
 
     fetch(requestUrl)
         .then(function (response) {
