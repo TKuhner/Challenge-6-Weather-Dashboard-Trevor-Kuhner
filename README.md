@@ -1,6 +1,11 @@
 # Challenge-6-Weather-Dashboard-Trevor-Kuhner
 This repository is for the completion of challenge 6 - weather dashboard for Northwestern University's coding bootcamp.
+
 The Weather Application is a web-based application that allows users to search for the current weather and a 5-day forecast of a specific location. It utilizes the OpenWeatherMap API to retrieve weather data.
+
+![image](https://github.com/TKuhner/Challenge-6-Weather-Dashboard-Trevor-Kuhner/assets/71107536/dd45b4ab-dc78-4554-9c72-426aebb65ba3)
+
+https://tkuhner.github.io/Challenge-6-Weather-Dashboard-Trevor-Kuhner/
 
 ## Features
 
@@ -19,7 +24,7 @@ The Weather Application is a web-based application that allows users to search f
 
 ## Getting Started
 
-To run the Weather Application, visit 
+To run the Weather Application, visit https://tkuhner.github.io/Challenge-6-Weather-Dashboard-Trevor-Kuhner/
 
 To run the Weather Application locally, follow these steps:
 
